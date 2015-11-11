@@ -37,6 +37,12 @@ Plugin 'godlygeek/tabular'
 Plugin 'tpope/vim-markdown'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'Lokaltog/vim-easymotion'
+Plugin 'Shougo/unite.vim'
+Plugin 'terryma/vim-multiple-cursors'
+"Plugin 'kshenoy/vim-signature'  " Need pre-requirements
+Plugin 'mhinz/vim-signify'
+Plugin 'Shougo/neocomplete.vim'
+
 
 " Themes
 Plugin 'morhetz/gruvbox'
@@ -65,6 +71,7 @@ set backspace=2 " Backspace deletes like most programs in insert mode
 set showcmd " Display incomplete commands
 set incsearch "Do incremental searching
 set hlsearch " Highlight matches
+set autoread " Automatically read a file when changed from outside
 set autowrite " Automatically :write before running commands
 " Reload .vimrc
 "map <leader>rr :source ~/.vimrc<CR>
@@ -133,6 +140,10 @@ hi Folded guifg=grey
 hi FoldColumn guibg=darkgrey
 hi FoldColumn guifg=grey
 
+" Increment/Decrement number
+nnoremap + <C-a>
+nnoremap - <C-x>
+
 
 " YouCompleteMe settings
 "let g:ycm_autoclose_preview_window_after_completion=1
@@ -157,7 +168,7 @@ if has('gui_running')
   colorscheme solarized
 else
   set t_co=256
-  "set background=dark
+  set background=dark
   colorscheme eva01
 endif
 
@@ -167,6 +178,40 @@ let NERDTreeIgnore=['\pyc$', '\~$'] "ignore files in NERDTree
 " Open NERDTree with Ctrl-n
 "map <C-n> :NERDTreeToggle<CR>
 map <C-\> :NERDTreeToggle<CR>
+
+" Always leave a space between the comment character and the comment
+let NERDSpaceDelims=1
+
+"==================================================
+" vim-multiple-cursors
+"==================================================
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_next_key='<C-d>'
+let g:multi_cursor_prev_key='<C-f>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<ESC>'
+" Called once before starting multiple cursor selection
+function! Multiple_cursors_before()
+    if exists(':NeoCompleteLock')==2
+        exe 'NeoCompleteLock'
+    endif
+endfunction
+" Called once when quiting multiple cursor selection
+function! Multiple_cursors_after()
+    if exists(':NeoCompleteUnlock')==2
+        exe 'NeoCompleteUnlock'
+    endif
+endfunction
+
+"==================================================
+" vim-indent-guides
+"==================================================
+let g:indent_guides_enable_on_vim_startup=1
+set ts=4 sw=4 et
+let g:indent_guides_start_level=1
+let g:indent_guides_guide_size=1
+
+
 
 
 " Let vim use the system clipboard
