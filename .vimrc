@@ -42,6 +42,7 @@ Plugin 'terryma/vim-multiple-cursors'
 "Plugin 'kshenoy/vim-signature'  " Need pre-requirements
 Plugin 'mhinz/vim-signify'
 Plugin 'Shougo/neocomplete.vim'
+Plugin 'Shougo/unite-outline'
 
 
 " Themes
@@ -175,8 +176,7 @@ endif
 " NerdTree settings
 " hide .pyc files
 let NERDTreeIgnore=['\pyc$', '\~$'] "ignore files in NERDTree
-" Open NERDTree with Ctrl-n
-"map <C-n> :NERDTreeToggle<CR>
+" Open NERDTree with Ctrl-\
 map <C-\> :NERDTreeToggle<CR>
 
 " Always leave a space between the comment character and the comment
