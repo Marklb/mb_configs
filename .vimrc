@@ -106,8 +106,8 @@ nnoremap <space> za
 " View docstrings for folded code
 let g:SimpylFold_docstring_preview=1
 
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set expandtab
 
 " Pyhton PEP8 indentation
@@ -118,15 +118,23 @@ au BufNewFile,BufRead *.py
     \ set textwidth=79
     \ set expandtab
     \ set autoindent
-    \ set fileformat=unix
 
-au BufNewFile,BufRead *.js, *.html, *.css, *.coffee
-    \ set tabstop=2
-    \ set softtabstop=2
-    \ set shiftwidth=2
+" Temp fix until I can get chaining file extensions on one line
+func! FileSettings_js()
+  set tabstop=2
+  set softtabstop=2
+  set shiftwidth=2
+endfunc
+
+autocmd BufNewFile,BufRead *.js :call FileSettings_js()
+autocmd BufNewFile,BufRead *.html :call FileSettings_js()
+autocmd BufNewFile,BufRead *.css :call FileSettings_js()
+autocmd BufNewFile,BufRead *.coffee :call FileSettings_js()
+
+
 
 " Mark extra whitespace as bad and probably color it red
-au BufRead,BufNewFile *.py, *.pyw, *.c, *.h math BadWhiteSpace /\s\+$/
+" au BufRead,BufNewFile *.py, *.pyw, *.c, *.h math BadWhiteSpace /\s\+$/
 
 set encoding=utf-8
 
@@ -181,6 +189,54 @@ map <C-\> :NERDTreeToggle<CR>
 
 " Always leave a space between the comment character and the comment
 let NERDSpaceDelims=1
+
+"==================================================
+" nerdcommenter
+"==================================================
+" Default <leader> = \
+" [count]<leader>cc |NERDComComment|
+" Comment out the current line or text selected in visual mode.
+"
+" [count]<leader>cn |NERDComNestedComment|
+" Same as <leader>cc but forces nesting.
+"
+" [count]<leader>c<space> |NERDComToggleComment|
+" Toggles the comment state of the selected line(s). If the topmost selected
+" line is commented, all selected lines are uncommented and vice versa.
+"
+" [count]<leader>cm |NERDComMinimalComment|
+" Comments the given lines using only one set of multipart delimiters.
+"
+" [count]<leader>ci |NERDComInvertComment|
+" Toggles the comment state of the selected line(s) individually.
+"
+" [count]<leader>cs |NERDComSexyComment|
+" Comments out the selected lines ``sexily''
+"
+" [count]<leader>cy |NERDComYankComment|
+" Same as <leader>cc except that the commented line(s) are yanked first.
+"
+" <leader>c$ |NERDComEOLComment|
+" Comments the current line from the cursor to the end of line.
+"
+" <leader>cA |NERDComAppendComment|
+" Adds comment delimiters to the end of line and goes into insert mode between
+" them.
+"
+" |NERDComInsertComment|
+" Adds comment delimiters at the current cursor position and inserts between.
+" Disabled by default.
+"
+" <leader>ca |NERDComAltDelim|
+" Switches to the alternative set of delimiters.
+"
+" [count]<leader>cl
+" [count]<leader>cb |NERDComAlignedComment|
+" Same as |NERDComComment| except that the delimiters are aligned down the left
+" side (<leader>cl) or both sides (<leader>cb).
+"
+" [count]<leader>cu |NERDComUncommentLine|
+" Uncomments the selected line(s).
 
 "==================================================
 " vim-multiple-cursors
